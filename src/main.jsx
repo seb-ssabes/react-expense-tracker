@@ -7,7 +7,7 @@ import GlobalState from './context/GlobalContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <GlobalState>
-    <ChakraProvider value={theme}>
+    <ChakraProvider theme={theme}>
       <App />
     </ChakraProvider>
   </GlobalState>

@@ -1,58 +1,76 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Stack } from "@chakra-ui/react";
+import AddTransaction from "../add-transaction";
 
-
-
-export default function Summary() {
+export default function Summary({onClose, isOpen}) {
   return (
     <Box
-       p='6'
-       border={'1px solid'}
-       borderColor={'gray.100'}
-       overflow={'hidden'}
-       borderRadius={'10'}
-       background={'white'}
-       display={'flex'}
+      p="6"
+      border="1px solid"
+      borderColor="gray.100"
+      overflow="hidden"
+      borderRadius="10"
+      bg="white"
     >
       <Flex
-        w='full'
-        justifyContent={'center'}
-        alignItems={'center'}
-        flexDirection={{
-          base: 'column',
-          sm:'column',
-          md: 'columnd',
-          lg: 'row',
-          xl: 'row'
-        }}
+        w="full"
+        justify="space-between"
+        align="flex-start"
+        flexDirection={{ base: "column", lg: "row" }}
+        gap={10}
       >
-        <Flex
+        <Stack
           flex={1}
-          w={'full'}
-          flexDirection={'column'}
-          alignItems={'center'}
-          justifyContent={'space-evenly'}
-          ml={'-20'}
-          mr={'2'}
+          spacing={6}
+          align="flex-start"
         >
-          <Heading size={'md'} mb={'4'} color={'gray.600'}>
-            Balance is 100
+          <Heading size="md" color="gray.600">
+            Balance is $100
           </Heading>
+
           <Flex
-            justifyContent={'space-evenly'}
-            alignItems={'center'}
-            bg={'gray.50'}
-            w='full'
-            h='100px'
-            border={'1px solid'}
-            borderColor={'gray.100'}
+            direction="column"
+            bg="gray.50"
+            w="full"
+            p={4}
+            border="1px solid"
+            borderColor="gray.100"
+            borderRadius="md"
           >
-            <Flex flexDirection={'column'}>
-              <Heading color={'gray.600'}>$100</Heading>
-              <Text color={'gray.500'}>Total Expense</Text>
-            </Flex>
+            <Heading size="md" color="gray.600">
+              $100
+            </Heading>
+            <Text color="gray.500">Total Income</Text>
           </Flex>
-        </Flex>
+
+          <Flex
+            direction="column"
+            bg="gray.50"
+            w="full"
+            p={4}
+            border="1px solid"
+            borderColor="gray.100"
+            borderRadius="md"
+          >
+            <Heading size="md" color="gray.600">
+              $100
+            </Heading>
+            <Text color="gray.500">Total Expense</Text>
+          </Flex>
+        </Stack>
+
+        <Box
+          flex={1}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minH="300px"
+          border="1px dashed gray"
+          borderRadius="md"
+        >
+          <Heading size="lg">Chart</Heading>
+          <AddTransaction onClose={onClose} isOpen={isOpen}/>
+        </Box>
       </Flex>
     </Box>
-  )
+  );
 }
