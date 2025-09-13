@@ -50,7 +50,7 @@ export default function TransactionChartSummary({expense = 100, income = 500}) {
   return (
     <Chart
       options={options}
-      series={[expense, income]}
+      series={[income, expense]}
       type='pie'
       width={'100%'}
       height={'100%'}

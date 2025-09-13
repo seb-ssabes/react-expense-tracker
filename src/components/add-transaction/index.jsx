@@ -15,10 +15,27 @@ import {
   Stack,
 } from "@chakra-ui/react";
 
+import { useContext } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
+
 export default function TransactionForm({ onClose, isOpen }) {
+  const { formData, setFormData, value, setValue, handleFormSubmit } = useContext(GlobalContext)
+
+  function handleFormChange(event) {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value
+    })
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    handleFormSubmit(formData)
+  }
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Add New Transaction</ModalHeader>
@@ -30,6 +47,7 @@ export default function TransactionForm({ onClose, isOpen }) {
                 placeholder="Enter Transaction description"
                 name="description"
                 type="text"
+                onChange={handleFormChange}
               />
             </FormControl>
 
@@ -39,17 +57,28 @@ export default function TransactionForm({ onClose, isOpen }) {
                 placeholder="Enter Transaction amount"
                 name="amount"
                 type="number"
+                onChange={handleFormChange}
               />
             </FormControl>
 
             <FormControl>
               <FormLabel>Select Type</FormLabel>
-              <RadioGroup defaultValue="income">
+              <RadioGroup
+                value={formData.type}
+                onChange={(value) =>
+                  setFormData({ ...formData, type: value })
+                }>
                 <Stack direction="row">
-                  <Radio value="income" colorScheme="blue">
+                  <Radio
+                    value="income"
+                    colorScheme="blue"
+                  >
                     Income
                   </Radio>
-                  <Radio value="expense" colorScheme="red">
+                  <Radio
+                    value="expense"
+                    colorScheme="red"
+                  >
                     Expense
                   </Radio>
                 </Stack>
@@ -61,7 +90,7 @@ export default function TransactionForm({ onClose, isOpen }) {
             <Button mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue" type="submit">
+            <Button colorScheme="blue" type="submit" onClick={onClose}>
               Add
             </Button>
           </ModalFooter>
@@ -70,4 +99,3 @@ export default function TransactionForm({ onClose, isOpen }) {
     </Modal>
   );
 }
-
